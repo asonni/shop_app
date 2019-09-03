@@ -1,19 +1,17 @@
 import 'package:flutter/foundation.dart';
 
-class Product {
+class CartItem {
   final String id;
   final String title;
-  final String description;
+  final int quantity;
   final double price;
-  final String imageUrl;
-  bool isFavorite;
 
-  Product({
+  CartItem({
     @required this.id,
     @required this.title,
-    @required this.description,
+    @required this.quantity,
     @required this.price,
-    @required this.imageUrl,
-    this.isFavorite = false,
   });
 }
+
+class Cart with ChangeNotifier {}
