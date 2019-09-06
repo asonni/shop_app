@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import 'package:shop/widgets/badge.dart';
+import 'package:shop/providers/cart.dart';
 import 'package:shop/widgets/products_grid.dart';
 
 enum FilterOptions {
@@ -17,6 +20,16 @@ class ProductsOverviewScreen extends StatefulWidget {
 class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   var _showOnlyFavorites = false;
 
+  void _onSelectedFilter(FilterOptions selectedValue) {
+    setState(() {
+      if (selectedValue == FilterOptions.Favorites) {
+        _showOnlyFavorites = true;
+      } else {
+        _showOnlyFavorites = false;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,15 +39,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
         ),
         actions: <Widget>[
           PopupMenuButton(
-            onSelected: (FilterOptions selectedValue) {
-              setState(() {
-                if (selectedValue == FilterOptions.Favorites) {
-                  _showOnlyFavorites = true;
-                } else {
-                  _showOnlyFavorites = false;
-                }
-              });
-            },
+            onSelected: _onSelectedFilter,
             icon: Icon(
               Icons.more_vert,
             ),
@@ -53,9 +58,23 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
               ),
             ],
           ),
+          Consumer<Cart>(
+            builder: (_, cart, ch) => Badge(
+              child: ch,
+              value: cart.itemCount.toString(),
+            ),
+            child: IconButton(
+              icon: Icon(
+                Icons.shopping_cart,
+              ),
+              onPressed: () {},
+            ),
+          ),
         ],
       ),
-      body: ProductsGrid(_showOnlyFavorites),
+      body: ProductsGrid(
+        _showOnlyFavorites,
+      ),
     );
   }
 }
