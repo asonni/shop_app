@@ -54,7 +54,7 @@ class ProductItem extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           trailing: IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.shopping_cart,
             ),
             color: Theme.of(context).accentColor,
@@ -69,7 +69,7 @@ class ProductItem extends StatelessWidget {
                 content: const Text(
                   'Added item to cart!',
                 ),
-                duration: Duration(
+                duration: const Duration(
                   seconds: 2,
                 ),
                 action: SnackBarAction(

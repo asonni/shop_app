@@ -42,18 +42,18 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
         actions: <Widget>[
           PopupMenuButton(
             onSelected: _onSelectedFilter,
-            icon: Icon(
+            icon: const Icon(
               Icons.more_vert,
             ),
             itemBuilder: (_) => [
               PopupMenuItem(
-                child: Text(
+                child: const Text(
                   'Only Favorites',
                 ),
                 value: FilterOptions.Favorites,
               ),
               PopupMenuItem(
-                child: Text(
+                child: const Text(
                   'Show All',
                 ),
                 value: FilterOptions.All,
@@ -66,7 +66,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
               value: cart.itemCount.toString(),
             ),
             child: IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.shopping_cart,
               ),
               onPressed: () {
