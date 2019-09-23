@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop/providers/products.dart';
 
 import 'package:shop/widgets/badge.dart';
 import 'package:shop/providers/cart.dart';
@@ -21,6 +22,37 @@ class ProductsOverviewScreen extends StatefulWidget {
 
 class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   var _showOnlyFavorites = false;
+  var _isInit = true;
+  var _isLoading = false;
+
+  @override
+  void initState() {
+    // Provider.of<Products>(context).fetchProducts(); // WON"T WORK!
+    // Future.delayed(Duration.zero).then((_) {
+    //   Provider.of<Products>(context).fetchProducts();
+    // });
+    super.initState();
+  }
+
+  Future<void> _refreshProducts(BuildContext context) async {
+    await Provider.of<Products>(context).fetchProducts();
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      setState(() {
+        _isLoading = true;
+      });
+      Provider.of<Products>(context).fetchProducts().then((_) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
 
   void _onSelectedFilter(FilterOptions selectedValue) {
     setState(() {
@@ -77,8 +109,15 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
         ],
       ),
       drawer: AppDrawer(),
-      body: ProductsGrid(
-        _showOnlyFavorites,
+      body: RefreshIndicator(
+        onRefresh: () => _refreshProducts(context),
+        child: _isLoading
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : ProductsGrid(
+                _showOnlyFavorites,
+              ),
       ),
     );
   }
