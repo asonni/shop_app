@@ -17,6 +17,7 @@ class UserProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final scaffold = Scaffold.of(context);
     return ListTile(
       title: Text(
@@ -41,7 +42,7 @@ class UserProductItem extends StatelessWidget {
                   arguments: id,
                 );
               },
-              color: Theme.of(context).primaryColor,
+              color: theme.primaryColor,
             ),
             IconButton(
               icon: const Icon(
@@ -62,7 +63,7 @@ class UserProductItem extends StatelessWidget {
                   );
                 }
               },
-              color: Theme.of(context).errorColor,
+              color: theme.errorColor,
             ),
           ],
         ),

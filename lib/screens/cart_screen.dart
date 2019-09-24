@@ -10,6 +10,7 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final cart = Provider.of<Cart>(context);
     return Scaffold(
       appBar: AppBar(
@@ -37,10 +38,10 @@ class CartScreen extends StatelessWidget {
                     label: Text(
                       '\$${cart.totalAmount.toStringAsFixed(2)}',
                       style: TextStyle(
-                        color: Theme.of(context).primaryTextTheme.title.color,
+                        color: theme.primaryTextTheme.title.color,
                       ),
                     ),
-                    backgroundColor: Theme.of(context).primaryColor,
+                    backgroundColor: theme.primaryColor,
                   ),
                   OrderButton(cart: cart)
                 ],
