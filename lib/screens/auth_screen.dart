@@ -121,7 +121,7 @@ class _AuthCardState extends State<AuthCard>
       parent: _controller,
       curve: Curves.fastOutSlowIn,
     ));
-    _heightAnimation.addListener(() => setState(() {}));
+    // _heightAnimation.addListener(() => setState(() {}));
     super.initState();
   }
 
@@ -135,11 +135,15 @@ class _AuthCardState extends State<AuthCard>
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text('An Error Occurred!'),
+        title: const Text(
+          'An Error Occurred!',
+        ),
         content: Text(message),
         actions: <Widget>[
           FlatButton(
-            child: Text('Okay'),
+            child: const Text(
+              'Okay',
+            ),
             onPressed: () {
               Navigator.of(ctx).pop();
             },
@@ -219,14 +223,18 @@ class _AuthCardState extends State<AuthCard>
         borderRadius: BorderRadius.circular(10.0),
       ),
       elevation: 8.0,
-      child: Container(
-        // height: _authMode == AuthMode.Signup ? 320 : 260,
-        height: _heightAnimation.value.height,
-        constraints: BoxConstraints(
-          minHeight: _heightAnimation.value.height,
+      child: AnimatedBuilder(
+        animation: _heightAnimation,
+        builder: (ctx, ch) => Container(
+          // height: _authMode == AuthMode.Signup ? 320 : 260,
+          height: _heightAnimation.value.height,
+          constraints: BoxConstraints(
+            minHeight: _heightAnimation.value.height,
+          ),
+          width: deviceSize.width * 0.75,
+          padding: const EdgeInsets.all(16.0),
+          child: ch,
         ),
-        width: deviceSize.width * 0.75,
-        padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
           child: SingleChildScrollView(
