@@ -202,12 +202,13 @@ class _AuthCardState extends State<AuthCard> {
             child: Column(
               children: <Widget>[
                 TextFormField(
-                  decoration: InputDecoration(labelText: 'E-Mail'),
+                  decoration: const InputDecoration(
+                    labelText: 'E-Mail',
+                  ),
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
-                    if (value.isEmpty || !value.contains('@')) {
+                    if (value.isEmpty || !value.contains('@'))
                       return 'Invalid email!';
-                    }
                     return null;
                   },
                   onSaved: (value) {
@@ -215,13 +216,14 @@ class _AuthCardState extends State<AuthCard> {
                   },
                 ),
                 TextFormField(
-                  decoration: InputDecoration(labelText: 'Password'),
+                  decoration: const InputDecoration(
+                    labelText: 'Password',
+                  ),
                   obscureText: true,
                   controller: _passwordController,
                   validator: (value) {
-                    if (value.isEmpty || value.length < 5) {
+                    if (value.isEmpty || value.length < 5)
                       return 'Password is too short!';
-                    }
                     return null;
                   },
                   onSaved: (value) {
@@ -231,13 +233,14 @@ class _AuthCardState extends State<AuthCard> {
                 if (_authMode == AuthMode.Signup)
                   TextFormField(
                     enabled: _authMode == AuthMode.Signup,
-                    decoration: InputDecoration(labelText: 'Confirm Password'),
+                    decoration: const InputDecoration(
+                      labelText: 'Confirm Password',
+                    ),
                     obscureText: true,
                     validator: _authMode == AuthMode.Signup
                         ? (value) {
-                            if (value != _passwordController.text) {
+                            if (value != _passwordController.text)
                               return 'Passwords do not match!';
-                            }
                             return null;
                           }
                         : null,
